@@ -31,7 +31,29 @@ public class Wallet {
 
     public BigDecimal getBalance(CryptoCurrency cryptoCurrency) {
         return getCryptoCurrencies().getOrDefault(cryptoCurrency, BigDecimal.ZERO);
+    }
+
+    public void deposit(CryptoCurrency cryptoCurrency, BigDecimal amount) {
+
+        // No negative amount
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
+            throw new IllegalArgumentException("Deposit amount must be greater then Zero.");
+
+        // add to balance
+        BigDecimal balance = getBalance(cryptoCurrency);
+        BigDecimal newBalance = balance.add(amount);
+
+        cryptoCurrencies.put(cryptoCurrency, newBalance);
 
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Wallet{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", walletName='").append(walletName).append('\'');
+        sb.append(", cryptoCurrencies=").append(cryptoCurrencies);
+        sb.append('}');
+        return sb.toString();
+    }
 }
