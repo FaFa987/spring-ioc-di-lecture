@@ -28,4 +28,10 @@ public class Wallet {
     public Map<CryptoCurrency, BigDecimal> getCryptoCurrencies() {
         return cryptoCurrencies;
     }
+
+    public BigDecimal getBalance(CryptoCurrency cryptoCurrency) {
+        return getCryptoCurrencies().getOrDefault(cryptoCurrency, BigDecimal.ZERO);
+
+    }
+
 }
