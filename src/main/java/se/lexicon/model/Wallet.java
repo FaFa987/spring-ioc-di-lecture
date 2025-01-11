@@ -1,5 +1,7 @@
 package se.lexicon.model;
 
+import se.lexicon.exception.InsufficientBalanceException;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +46,18 @@ public class Wallet {
         BigDecimal newBalance = balance.add(amount);
 
         cryptoCurrencies.put(cryptoCurrency, newBalance);
+    }
 
+    public void withdrawal(CryptoCurrency cryptoCurrency, BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
+            throw new IllegalArgumentException("Withdrawal amount must be greater then zero.");
+
+        BigDecimal balance = getBalance(cryptoCurrency);
+        if (balance.compareTo(amount) < 0)
+            throw new InsufficientBalanceException("Insufficient Balance for withdrawal. ");
+        BigDecimal newBalance = balance.subtract(amount);
+
+        cryptoCurrencies.put(cryptoCurrency, newBalance);
     }
 
     @Override
