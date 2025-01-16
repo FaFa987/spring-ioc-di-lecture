@@ -13,7 +13,7 @@ public class Wallet {
     private final String walletName;
     private final Map<CryptoCurrency , BigDecimal> cryptoCurrencies;
 
-    public Wallet(String walletName, Map<CryptoCurrency, BigDecimal> cryptoCurrencies) {
+    public Wallet(String walletName) {
         this.id = UUID.randomUUID().toString();
         this.walletName = walletName;
         this.cryptoCurrencies = new HashMap<>();
